@@ -47,7 +47,7 @@ class AGRAFA:
     def Post(self,year,item,crop_type,crop,city):
         """
         Arguments:
-            year: 年度
+            year: 年度, 3 digits
             item: 期作別
             crop_type: 作物類別
             crop: 作物代號
@@ -170,7 +170,7 @@ class AGRAFA:
         sw = open(f'{city_name}_{crop_name}.txt','w')
         column_header = ['年','期作','縣市','鄉鎮']
         for year in self.year:
-            year = str(year)
+            year = "{:03d}".format(year)
             for item in item_key:
                 response = self.Post(year, item, '', crop_key, city_key)
                 df = self.ToDataFrame(response.text)
@@ -197,7 +197,7 @@ class AGRAFA:
 afa = AFA()
 
 # Get DataFrame of query data
-year = '111'
+year = '111'         # must be 3 digit, with leading zero
 item_key = '03'      # 全年作
 crop_type_key = '02' # 蔬菜類
 crop_key = '203'     # 馬鈴薯
